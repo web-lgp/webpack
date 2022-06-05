@@ -1,14 +1,21 @@
-const path = require("path")
+const path = require("path")//nodejs专门处理路径问题
 const ESLintPlugin = require('eslint-webpack-plugin')
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
+    //入口
     entry: "./src/main.js",
+    //输出
     output: {
+        //所有文件的输出路径
         path: path.resolve(__dirname, "dist"),
+        //入口文件打包输出文件名
         filename: "static/js/main.js",
+        //自动清空上次打包的内容
         clean: true
     },
+    //加载器，处理webpack不能识别的资源
     module: {
+        //loader的配置
         rules: [
             {
                 test: /\.css$/,
@@ -67,8 +74,20 @@ module.exports = {
               }
         ]
     },
-    plugins: [new ESLintPlugin(
-        { context: path.resolve(__dirname, "src") }
-    )],
+    //插件
+    plugins: [
+        new ESLintPlugin({ 
+            context: path.resolve(__dirname, "src") 
+        }),
+        new HtmlWebpackPlugin({
+            template:path.resolve(__dirname,"public/index.html")
+        }),
+    ],
+    //开发服务器
+    devServer:{
+        host:"localhost",//服务器域名
+        port:"3000",//端口号
+        open:true//是否自动打开浏览器
+    },
     mode: "development"
 }
