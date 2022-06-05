@@ -7,11 +7,11 @@ module.exports = {
     //输出
     output: {
         //所有文件的输出路径
-        path: path.resolve(__dirname, "dist"),
+        path: undefined,
         //入口文件打包输出文件名
         filename: "static/js/main.js",
-        //自动清空上次打包的内容
-        clean: true
+        // //自动清空上次打包的内容
+        // clean: true
     },
     //加载器，处理webpack不能识别的资源
     module: {
@@ -77,17 +77,20 @@ module.exports = {
     //插件
     plugins: [
         new ESLintPlugin({ 
-            context: path.resolve(__dirname, "src") 
+            context: path.resolve(__dirname, "../src") 
         }),
         new HtmlWebpackPlugin({
-            template:path.resolve(__dirname,"public/index.html")
+            template:path.resolve(__dirname,"../public/index.html")
         }),
     ],
     //开发服务器
     devServer:{
         host:"localhost",//服务器域名
         port:"3000",//端口号
-        open:true//是否自动打开浏览器
+        open:true,//是否自动打开浏览器
+        hot:true  //开启热处理
     },
-    mode: "development"
+    mode: "development",
+    //处理开发环境下代码报错，并提示源码位置快速定位
+    devtool:"cheap-module-source-map"
 }

@@ -9,6 +9,10 @@ import "./sass/index.sass";
 import "./sass/index.scss";
 import "./stylus/index.styl";
 
-const result = count(2, 2);
+const result = count(50,10);
 console.log(result);
 console.log(sum(1, 2, 3, 4,5));
+if(module.hot){
+    //判断浏览器是否支持热模块替换功能
+    module.hot.accept("./js/count")
+}
